@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -17,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataMongoTest
@@ -206,5 +209,187 @@ public class MongoDbSpringIntegrationTest {
     // Test cases using org.springframework.data.mongodb.core.MongoTemplate
     // #################################################################################################################
 
-    // ... TODO
+    // -------------------------------
+    // ObjectId
+    // -------------------------------
+    @Test
+    void testFindByObjectIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is(new ObjectId("507f1f77bcf86cd799439011"));
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByObjectIdValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is(new ObjectId("64b8b3e9fa9c2b5d6f4e1234"));
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    // -------------------------------
+    // String
+    // -------------------------------
+    @Test
+    void testFindByStringIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is("string_id");
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByStringValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is("string_value");
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    // -------------------------------
+    // Integer
+    // -------------------------------
+    @Test
+    void testFindByIntegerIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is(123);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByIntegerValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is(456);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    // -------------------------------
+    // Long
+    // -------------------------------
+    @Test
+    void testFindByLongIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is(1234567890123L);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByLongValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is(9876543210987L);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    // -------------------------------
+    // Double
+    // -------------------------------
+    @Test
+    void testFindByDoubleIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is(3.14159);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByDoubleValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is(2.71828);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    // -------------------------------
+    // Boolean
+    // -------------------------------
+    @Test
+    void testFindByBooleanIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is(true);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByBooleanValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is(false);
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    // -------------------------------
+    // Date
+    // -------------------------------
+    @Test
+    void testFindByDateIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is(new Date(123456));
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByDateValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is(new Date(654321));
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    // -------------------------------
+    // UUID
+    // -------------------------------
+    @Test
+    void testFindByUUIDIdWithMongoTemplate() {
+        var criteria = Criteria.where("_id").is(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
+
+    @Test
+    void testFindByUUIDValueWithMongoTemplate() {
+        var criteria = Criteria.where("value").is(UUID.fromString("987e6543-e21b-12d3-a456-426614174999"));
+        var query = new Query(criteria);
+
+        List<Document> doc = mongoTemplate.find(query, Document.class, COLLECTIONNAME);
+        assertEquals(1, doc.size());
+        assertNotNull(doc.get(0));
+    }
 }
